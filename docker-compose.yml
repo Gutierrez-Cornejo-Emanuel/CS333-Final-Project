@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  cs333finalproject:
+    image: cs333finalproject
+    build:
+      context: .
+      dockerfile: ./Dockerfile
