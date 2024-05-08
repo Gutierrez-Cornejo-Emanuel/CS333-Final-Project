@@ -21,7 +21,7 @@ def main():
     while(True):
         printSelectionMenu()
         choice = input()
-        while not choice.isnumeric() or int(choice) > 5 or int(choice) < 0:
+        while not choice.isnumeric() or int(choice) > 6 or int(choice) < 0:
             print("Please enter a valid number")
             choice = input()
         i_choice = int(choice)
@@ -67,7 +67,13 @@ def main():
             rem_list.add_reminder(Reminder(task_list.tasks[int(t_choice)], res))
         elif i_choice == 5:
             print(rem_view.viewReminders())
-        
+        elif i_choice == 6:
+            print(task_view.viewTasks())
+            t_choice = input("Enter the ID of the task you'd like to mark as done: ")
+            while not t_choice.isnumeric() or int(t_choice) >= len(task_list.tasks) or int(t_choice) < 0:
+                print("Please enter a valid number")
+                t_choice = input()
+            task_list.tasks[int(t_choice)].done = True
         print(rem_list.check_reminders())
 
 
@@ -80,5 +86,6 @@ def printSelectionMenu():
     print("3. Remove a task")
     print("4. Add a reminder to a task")
     print("5. View reminders")
+    print("6. Mark task as done")
     print("0. EXIT")
 main()
