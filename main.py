@@ -26,6 +26,7 @@ def main():
             choice = input()
         i_choice = int(choice)
         if i_choice == 0:
+            print("Thank you for using this program!")
             return
         elif i_choice == 1:
             print(task_view.viewTasks())
@@ -75,7 +76,7 @@ def main():
                 t_choice = input()
             task_list.tasks[int(t_choice)].done = True
         print(rem_list.check_reminders())
-
+        print("===============")
 
 
 
