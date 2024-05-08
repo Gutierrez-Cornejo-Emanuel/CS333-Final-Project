@@ -2,6 +2,8 @@ from TaskModule.Task import Task
 from TaskModule.TaskList import TaskList
 from TaskModule.TaskReminder import Reminder
 from TaskModule.ReminderList import ReminderList
+from TaskModule.TaskListView import TaskListView
+from TaskModule.ReminderListView import ReminderListView
 import unittest
 import datetime as dt
 
@@ -66,7 +68,29 @@ class ReminderListReminderIntegrationTest(unittest.TestCase):
         self.assertTrue(t2.name in s)
         self.assertTrue(str(t2.due_date) in s)
 
+class TaskListViewIntegrationTest(unittest.TestCase):
+    def test_view(self):
+        t1 = Task("task1", dt.datetime.today(), "task1_description")
+        t2 = Task("task2", dt.datetime.today(), "task1_description")
+        l = TaskList()
+        l.add_task(t1)
+        l.add_task(t2)
+        tlv = TaskListView(l)
+        self.assertIn(t1.name, tlv.viewTasks())
+        self.assertIn(t2.name, tlv.viewTasks())
 
+class ReminderListViewIntegrationTest(unittest.TestCase):
+    def test_view(self):
+        t1 = Task("task1", dt.datetime.today(), "task1_description")
+        r = Reminder(t1, t1.due_date - dt.timedelta(1))
+        r2 = Reminder(t1, t1.due_date - dt.timedelta(3))
+        rl = ReminderList()
+        rl.add_reminder(r)
+        rl.add_reminder(r2)
+        rv = ReminderListView(rl)
+        self.assertIn(str(r.remind_date), rv.viewReminders())
+        self.assertIn(str(r2.remind_date), rv.viewReminders())
+        self.assertIn((t1.name), rv.viewReminders())
 
 if __name__ == '__main__':
     unittest.main()
